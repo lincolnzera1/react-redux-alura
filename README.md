@@ -1,70 +1,98 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Projeto React Redux Toolkit
+Bem-vindo ao Projeto React Redux Toolkit! Este projeto é uma aplicação React com a integração poderosa do Redux Toolkit para gerenciamento de estado. Abaixo, você encontrará informações detalhadas sobre a estrutura, configuração e principais conceitos abordados no curso, juntamente com melhores práticas recomendadas.
 
-## Available Scripts
+# Sobre o Projeto
+Este projeto foi desenvolvido com o objetivo de proporcionar uma experiência de aprendizado eficaz no uso do React e do Redux Toolkit. Abaixo estão os principais tópicos abordados:
 
-In the project directory, you can run:
+# Configuração Inicial
+Configuração básica de HTML e CSS para estabelecer as bases do projeto.
+# Integração do Redux
+Criação da estrutura Redux na pasta Store dentro de src.
+Utilização do configureStore para configurar o store, incluindo os reducers.
+javascript
+Copy code
+import { configureStore } from '@reduxjs/toolkit';
 
-### `npm start`
+const store = configureStore({
+    reducer: {
+        categorias: // ... 
+    }
+});
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+export default store;
+# Criando Reducer de Categorias
+Utilização do createSlice para criar o reducer.
+javascript
+Copy code
+import { createSlice } from "@reduxjs/toolkit";
+// ... (importações das imagens)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+const initialState = [
+    // ... (dados iniciais)
+];
 
-### `npm test`
+const categoriasSlice = createSlice({
+    name: "categorias",
+    initialState: initialState
+});
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+export default categoriasSlice.reducer;
+# Passando Dados para a View
+Utilização do useSelector para ler os dados na view.
+javascript
+Copy code
+const categorias = useSelector(state => state.categorias);
 
-### `npm run build`
+categorias.map((categoria, index) => (
+    // ... (renderização dos dados na view)
+));
+##  Dicionário Redux
+Aula 4 - Crie Actions (Seção 6)
+Criando Actions com Redux Toolkit
+Definição de um reducer no slicer.
+javascript
+Copy code
+const itensSlice = createSlice({
+    name: "itens",
+    initialState: initialState,
+    reducers: {
+        mudarLike: (state, action) => {
+            // ... (lógica da action)
+        },
+    },
+});
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+export const { mudarLike } = itensSlice.actions;
+# Utilizando useDispatch e Dispatching Actions
+Utilização do useDispatch para realizar alterações no código.
+javascript
+Copy code
+const dispatch = useDispatch();
+function resolverFavorito() {
+    dispatch(mudarLike(id));
+}
+# Atualizando o Estado com Reducer
+Atualização do estado com base no payload recebido.
+javascript
+Copy code
+const itensSlice = createSlice({
+    name: "itens",
+    initialState: initialState,
+    reducers: {
+        mudarLike: (state, { payload }) => {
+            state = state.map((item) => {
+                if (item.id === payload) item.favorito = !item.favorito;
+                return state;
+            });
+        },
+    },
+});
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+export const { mudarLike } = itensSlice.actions;
+## Iniciando o Projeto
+Para iniciar o projeto, siga os passos abaixo:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Clone o repositório para sua máquina local.
+Instale as dependências usando npm install.
+Execute o projeto com npm start.
